@@ -9,7 +9,40 @@ https://user-images.githubusercontent.com/96648305/192074593-95e3c277-6aac-4e93-
 * UnityEditor  
 
 ## 使い方
+**事前にGyazoAPIの登録が必要です。**  
+![スクリーンショット 2022-09-24 111033](https://user-images.githubusercontent.com/96648305/192075714-b03f288a-6565-493a-b45b-41bd4cf54dd8.png)  
 
+1. GyazoAPIの準備が出来たら、アクセストークンをメモしておく
+
+2. 以下の様にそれぞれの処理を呼び出して、アクセストークンを設定する（ツイートしたい文言などもサンプルなどの様に設定する）
+```
+[Header("GyazoAPIのアクセストークンをここに設定"),SerializeField]
+    private string accesstoken=null;
+    
+    [Header("Tweetしたい文字をここに設定"),SerializeField]
+    private string text=null;
+    [Header("タグにしたい文字をここに設定"),SerializeField]
+    private string[] hashtag=null;
+
+    [SerializeField] private Button _button;
+
+   async UniTask Start()
+    {
+        _button.OnClickAsObservable().Subscribe(async _ =>
+        {
+             //スクショする
+             Texture2D tex = await CaptureTweet.CaptureScreenshot(this.GetCancellationTokenOnDestroy());
+             
+             //画像をGyazoにあげる
+             var url=await CaptureTweet.ImgUpload(tex,accesstoken,new CancellationTokenSource()); 
+             
+             //Gyazoにあげた画像のURLをつけてツイートする
+             CaptureTweet.Tweet(text,hashtag,url);
+             
+             Destroy(tex);
+        }).AddTo(this);
+    }
+```
 
 ## ライセンス
 
