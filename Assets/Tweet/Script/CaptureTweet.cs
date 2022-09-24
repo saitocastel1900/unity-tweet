@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public static class CaptureTweet
 {
@@ -16,10 +17,12 @@ public static class CaptureTweet
     public static async UniTask<Texture2D> CaptureScreenshot(CancellationToken token)
     {
         //プラットフォームごとに保存先を分ける
-#if UNITY_EDITOR || UNITY_WEBGL
+#if UNITY_EDITOR || UNITY_WEBGL　|| UNITY_STANDALONE_WIN
         string path = Application.dataPath;
 #elif UNITY_ANDROID
-       path = Application.persistentDataPath;
+        string path = Application.persistentDataPath;
+#else
+Debug.LogError("この環境（機種）に対応していません");
 #endif
         //保存先フォルダを作成する
         if (!Directory.Exists(path + "/Captures"))
@@ -61,65 +64,65 @@ public static class CaptureTweet
         var form = new WWWForm();
         form.AddField("access_token", accesstoken);
         form.AddBinaryData("imagedata", bimg, "screenshot.png", "image/png");
-        
+
         //画像をアップロード、URLゲット!
-        using (var request = UnityWebRequest.Post(uploadUrl, form))
+        using var request = await UnityWebRequest.Post(uploadUrl, form)
+            .SendWebRequest()
+            .ToUniTask(Progress.Create<float>(x => Debug.Log(x)),cancellationToken:source.Token);;
+        
+        switch (request.result)
         {
-            //リクエストを出す
-            await request.SendWebRequest();
-            switch (request.result)
-            {
-                case UnityWebRequest.Result.InProgress:
-                    Debug.Log("リクエスト中");
-                    break;
+            case UnityWebRequest.Result.InProgress:
+                Debug.Log("リクエスト中");
+                break;
 
-                case UnityWebRequest.Result.Success:
-                    Debug.Log("リクエスト成功");
-                    break;
+            case UnityWebRequest.Result.Success:
+                Debug.Log("リクエスト成功");
+                break;
 
-                case UnityWebRequest.Result.ConnectionError:
-                    Debug.Log
-                    (
-                        @"サーバとの通信に失敗。
+            case UnityWebRequest.Result.ConnectionError:
+                Debug.LogError
+                (
+                    @"サーバとの通信に失敗。
 リクエストが接続できなかった、
 セキュリティで保護されたチャネルを確立できなかったなど。"
-                    );
-                    break;
+                         
+                );
+                break;
 
-                case UnityWebRequest.Result.ProtocolError:
-                    Debug.Log
-                    (
-                        @"サーバがエラー応答を返した。
+            case UnityWebRequest.Result.ProtocolError:
+                Debug.LogError
+                (
+                    @"サーバがエラー応答を返した。
 サーバとの通信には成功したが、
 接続プロトコルで定義されているエラーを受け取った。"
-                    );
-                    break;
+                );
+                break;
 
-                case UnityWebRequest.Result.DataProcessingError:
-                    Debug.Log
-                    (
-                        @"データの処理中にエラーが発生。
+            case UnityWebRequest.Result.DataProcessingError:
+                Debug.LogError
+                (
+                    @"データの処理中にエラーが発生。
 リクエストはサーバとの通信に成功したが、
 受信したデータの処理中にエラーが発生。
 データが破損しているか、正しい形式ではないなど。"
-                    );
-                    break;
-
-                default: throw new ArgumentOutOfRangeException();
-            }
-
-            //Jsonパース
-            var response = JsonUtility.FromJson<GyazoResponse>(request.downloadHandler.text);
-
-            if (response.permalink_url == null)
-            {
-                Debug.LogError("画像をアップロードまた、ダウンロード出来ませんでした");
-                source.Cancel();
-            }
-
-            //取得できた画像urlを返す
-            return response.permalink_url;
+                    
+                );
+                break;
+             
+            default: throw new ArgumentOutOfRangeException();
         }
+
+        //Jsonパース
+        var response = JsonUtility.FromJson<GyazoResponse>(request.downloadHandler.text);
+        if (response.permalink_url == null)
+        {
+            Debug.LogError("画像をアップロードまた、ダウンロード出来ませんでした");
+            source.Cancel();
+        }
+
+        //取得できた画像urlを返す
+        return response.permalink_url;
     }
 
     /// <summary>
