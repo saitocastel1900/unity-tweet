@@ -10,7 +10,6 @@ https://user-images.githubusercontent.com/96648305/192074593-95e3c277-6aac-4e93-
 
 ## 使い方
 
-## サンプル
 
 ## ライセンス
 
