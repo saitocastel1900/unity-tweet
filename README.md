@@ -9,13 +9,14 @@ https://user-images.githubusercontent.com/96648305/192074593-95e3c277-6aac-4e93-
 * UnityEditor  
 
 ## 使い方
-**事前にGyazoAPIの登録が必要です。**  
+**事前にGyazoAPIの登録が必要です。詳しくは検索してみてください。**  
 ![スクリーンショット 2022-09-24 111033](https://user-images.githubusercontent.com/96648305/192075714-b03f288a-6565-493a-b45b-41bd4cf54dd8.png)  
 
 1. GyazoAPIの準備が出来たら、アクセストークンをメモしておく
 
 2. 以下の様にそれぞれの処理を呼び出して、アクセストークンを設定する（ツイートしたい文言などもサンプルなどの様に設定する）
 ```
+//Sample TweetSample.cs
 [Header("GyazoAPIのアクセストークンをここに設定"),SerializeField]
     private string accesstoken=null;
     
