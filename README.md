@@ -1,13 +1,16 @@
 # unity-tweet
 unityのから画像付きのツイートをするコードです。  
 
-# 対応環境
+## 対応環境
+* WebGL  
+* Android
+* UnityEditor  
 
-# 使い方
+## 使い方
 
-# サンプル
+## サンプル
 
-# ライセンス
+## ライセンス
 
 ```
 MIT License
