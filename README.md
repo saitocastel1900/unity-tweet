@@ -1,5 +1,5 @@
 # unity-tweet
-unityのから画像付きのツイートをするコードです。  
+unityで画像付きツイートができるライブラリです。   
 
 https://user-images.githubusercontent.com/96648305/192074593-95e3c277-6aac-4e93-bbef-aae1bb2b0b2b.mp4  
 
