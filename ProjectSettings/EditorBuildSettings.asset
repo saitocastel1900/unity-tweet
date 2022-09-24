@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Tweet/Scene/Sample.unity
+    guid: 84a22ba51585fea4fb85245c97918fd9
   m_configObjects: {}

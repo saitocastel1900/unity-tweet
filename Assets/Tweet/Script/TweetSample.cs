@@ -16,17 +16,25 @@ public class TweetSample : MonoBehaviour
     [Header("タグにしたい文字をここに設定"),SerializeField]
     private string[] hashtag=null;
 
+    [SerializeField] private Text _text;
+
     [SerializeField] private Button _button;
     
     // Start is called before the first frame update
     async UniTask Start()
     {
-        _button.OnClickAsObservable().Subscribe(async _ =>
-        {
-             Texture2D tex = await CaptureTweet.CaptureScreenshot(this.GetCancellationTokenOnDestroy());
-             var url=await CaptureTweet.ImgUpload(tex,accesstoken,new CancellationTokenSource()); 
-             CaptureTweet.Tweet(text,hashtag,url);
-             Destroy(tex);
-        }).AddTo(this);
+        _button.OnClickAsObservable()
+            .Subscribe(async _ =>
+            {
+                _text.text = "こんにちわ！！！";
+                Texture2D tex = await CaptureTweet.CaptureScreenshot(this.GetCancellationTokenOnDestroy());
+                _text.text = "こ”＃んにちわ";
+                var url = await CaptureTweet.ImgUpload(tex, accesstoken, new CancellationTokenSource());
+                _text.text = "こんFGFにちわ";
+                CaptureTweet.Tweet(text, hashtag, url);
+                _text.text = "こんにちわ";
+                Destroy(tex);
+            }).AddTo(this);
+        
     }
 }
