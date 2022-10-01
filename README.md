@@ -10,7 +10,7 @@ https://user-images.githubusercontent.com/96648305/192074593-95e3c277-6aac-4e93-
 ## インストール方法
 
 #### パッケージから
-1. https://github.com/saitocastel1900/unity-tweet/releases/tag/v1.0.1から最近のPackageをダウンロード  
+1. https://github.com/saitocastel1900/unity-tweet/releases/ から最新のPackageをダウンロード  
 2. Unityのアセット=>パッケージをインポート＝＞カスタムパッケージからダウンロードしたPackageを選択
 
 #### CLIから
