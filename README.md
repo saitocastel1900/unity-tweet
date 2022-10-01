@@ -7,6 +7,21 @@ https://user-images.githubusercontent.com/96648305/192074593-95e3c277-6aac-4e93-
 * WIndows
 * UnityEditor  
 
+## インストール方法
+
+#### パッケージから
+
+#### CLIから
+1. Node.jsをインストール  
+2. openpumを使えるようにするため以下のコードをcmdで実行
+```
+npm install -g openupm-cli
+```
+3. インストールしたいUnityのプロジェクトに移動して、以下をcmdで実行
+```
+openupm add dev.makaroni.unity-tweet
+```
+
 ## 使い方
 **事前にGyazoAPIの登録が必要です。詳しくは検索してみてください。**  
 ![スクリーンショット 2022-09-24 111033](https://user-images.githubusercontent.com/96648305/192075714-b03f288a-6565-493a-b45b-41bd4cf54dd8.png)  
