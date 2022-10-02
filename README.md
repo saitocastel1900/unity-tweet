@@ -16,7 +16,6 @@ https://user-images.githubusercontent.com/96648305/192074593-95e3c277-6aac-4e93-
 #### CLIから
 1. Node.jsをインストール  
 2. openpumを使えるようにするため以下のコードをcmdで実行
-3. ```https://github.com/saitocastel1900/unity-tweet.git?=Packages/unity-tweet/```
 
 ```
 npm install -g openupm-cli
