@@ -12,7 +12,7 @@ https://user-images.githubusercontent.com/96648305/192074593-95e3c277-6aac-4e93-
 #### パッケージから
 1. https://github.com/saitocastel1900/unity-tweet/releases/ から最新のPackageをダウンロード  
 2. Unityのアセット=>パッケージをインポート＝＞カスタムパッケージからダウンロードしたPackageを選択
-#### ddd
+
 #### CLIから
 1. Node.jsをインストール  
 2. openpumを使えるようにするため以下のコードをcmdで実行
