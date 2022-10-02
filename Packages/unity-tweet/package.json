@@ -5,6 +5,9 @@
   "description": "TweetCapture",
   "documentationUrl":"https://github.com/saitocastel1900/unity-tweet",
   "unity": "2021.3",
+  "keywords": [
+    "unity-tweet"
+  ],
   "type": "library",
   "author": {
     "name":"SaitoRyoma(makaroni)",
